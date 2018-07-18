@@ -1,0 +1,93 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>采购进度表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="budget_year" class="control-label">年份: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="budget_year" [(ngModel)]="budget_year" name="budget_year">
+                                    <option *ngFor="let year of selectYear" [value]="year" >{{year}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1">
+                            <label for="company_code" class="control-label">公司: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="company_code" [(ngModel)]="company_code" name="company_code"  (ngModelChange)="getDepartment($event)">
+                                    <option *ngFor="let company of companyList" [value]="company.value" >{{company.name}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1">
+                            <label for="department_id" class="control-label">部门: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="department_id" [(ngModel)]="department_id" name="department_id" >
+                                <option *ngFor="let department of departmentList" [value]="department.value" >{{department.name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <a class="btn btn-primary" (click)="queryPurchase()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportPurchase()" >导出Excel</a>
+                            <a class="btn btn-primary" (click)="exportPurchaseDetail()" >导出明细Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+                    <table class="table table-bordered table-striped table-condensed t_nowrap">
+                        <thead>
+                        <tr>
+                            <th rowspan="2"><input type="checkbox" (click)="getAllCheckboxSelected()"/>全选</th>
+                            <th rowspan="2">公司名称</th>
+                            <th rowspan="2">预算部门</th>
+                            <th rowspan="2">预算科目</th>
+                            <th rowspan="2">预算立项编号</th>
+                            <th rowspan="2">预算立项名称</th>
+                            <th rowspan="2">预算立项当前审批人</th>
+                            <th rowspan="2">当前已审批立项金额</th>
+                            <th colspan="4">当年采购需求申请金额</th>
+                            <th rowspan="2">采购申请名称</th>
+                            <th rowspan="2">采购申请当前审批人</th>
+                        </tr>
+                        <tr>
+                            <th>审批中</th>
+                            <th>审批中进度</th>
+                            <th>已审批</th>
+                            <th>已审批进度</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let purcahse of purchaseList;index as i" style="color:royalblue">
+                                <td><input type="checkbox" [value]="i" /></td>
+                                <td>{{purcahse.COMPANY_NAME}}</td>
+                                <td >
+                                    <a class="btn-link" title="点击查看明细" 
+                                    (click)="showPurchaseDetail(purcahse.COMPANY_CODE,purcahse.DEPARTMENT_ID,purcahse.BUDGET_ACCOUNT_ID,i,$event)">{{purcahse.DEPARTMENT_NAME}}</a>
+                                </td>
+                                <td>{{purcahse.BUDGET_ACCOUNT_NAME}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: right">{{purcahse.APPROVED_BUDGET_AMOUNT}}</td>
+                                <td style="text-align: right">{{purcahse.NO_APPROVED_AMOUNT}}</td>
+                                <td style="text-align: right">{{purcahse.NO_APPROVED_PRE}}%</td>
+                                <td style="text-align: right">{{purcahse.APPROVED_AMOUNT}}</td>
+                                <td style="text-align: right">{{purcahse.APPROVED_PRE}}%</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </div>
+        <page-content [page]="page" (pagination)="queryPurchase()"></page-content>
+    </div>
+</div>

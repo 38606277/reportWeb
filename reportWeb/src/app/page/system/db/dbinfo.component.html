@@ -1,0 +1,63 @@
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="page-header">
+				<h3>{{operTitle}}</h3>
+			</div>
+			<form class="form-horizontal" (ngSubmit)="_submit()">
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">连接名称: </label>
+					<div class="col-md-4">
+                        <input class="form-control border_c" id="name" type="text" [(ngModel)]="db.name" name="db.name" required [readonly]="operType=='view'||operType=='update'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="dbtype" class="col-md-2 control-label">数据库类型: </label>
+					<div class="col-md-4 " >
+						<select id="dbtype" [(ngModel)]="db.driver" name="db.driver" [disabled]="operType=='view'" (ngModelChange)="selectChange($event)">
+                        	<option *ngFor="let dbtype of dbtyps" [value]="dbtype.dbDriver" >{{dbtype.dbType}}</option>
+                    	</select>
+					</div>
+				</div>
+                <div class="form-group">
+					 <label for="driver" class="col-md-2 control-label">驱动类型: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="driver" type="text" [(ngModel)]="db.driver" name="db.driver"  required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+                <div class="form-group">
+					 <label for="url" class="col-md-2 control-label">地址: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="url" type="text" [(ngModel)]="db.url" name="db.url" required [readonly]="operType=='view'"/>
+					</div>
+					<div class="col-md-4">
+						{{title}}
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="username" class="col-md-2 control-label">用户名: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="username" type="text" [(ngModel)]="db.username" name="db.username" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+                <div class="form-group">
+					 <label for="password" class="col-md-2 control-label">密码: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="password" type="text" [(ngModel)]="db.password" name="db.password" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-1" *ngIf="operType!='view'">
+						 <button type="button" class="btn btn-primary" (click)="test()">测试</button>
+					</div>
+					<div class="col-md-1" *ngIf="operType!='view'">
+						 <button type="submit" class="btn btn-primary">保存</button>
+					</div>
+                    <div class="col-md-1" [ngClass]="{'col-md-offset-2':operType=='view'}">
+						 <a [routerLink]="['/index/system/dbs']" class="btn btn-primary">返回</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

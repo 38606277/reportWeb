@@ -1,0 +1,62 @@
+<div class="panel">
+	<div class="panel-heading">
+		<h3>Excel文件导入
+		</h3>
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="cities" class="col-md-2 control-label">地市: </label>
+				<div class="col-md-4 " >
+					<select [(ngModel)]="cities" name="cities" >
+						<option value="济南" >济南</option>
+						<option value="泰安" >泰安</option>
+						<option value="潍坊" >潍坊</option>
+						<option value="德州" >德州</option>
+						<option value="滨州" >滨州</option>
+						<option value="莱芜" >莱芜</option>
+						<option value="青岛" >青岛</option>
+						<option value="烟台" >烟台</option>
+						<option value="日照" >日照</option>
+						<option value="东营" >东营</option>
+						<option value="济宁" >济宁</option>
+						<option value="荷泽" >荷泽</option>
+						<option value="聊城" >聊城</option>
+						<option value="临沂" >临沂</option>
+						<option value="枣庄" >枣庄</option>
+						<option value="淄博" >淄博</option>
+						<option value="威海" >威海</option>
+						<option value="省本部" >省本部</option>
+						<option value="培训中心" >培训中心</option>
+						<option value="客服一中心" >客服一中心</option>
+						<option value="客服二中心" >客服二中心</option>
+						<option value="中移公司" >中移公司</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="exceltype" class="col-md-2 control-label">报表类型: </label>
+				<div class="col-md-4 " >
+					<select [(ngModel)]="excelType" name="excelType" >
+						<option [value]="1" >资产明细表</option>
+						<option [value]="2" >资产新增表</option>
+						<option [value]="3" >资产调整表</option>
+						<option [value]="4" >资产报废表</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="file-1" class="col-md-2 control-label" style="float:left">Excel文件:</label>
+				<div class="col-md-10">
+					<!--<input id="excelFile" type="file" >-->
+					<input type="file" id="excelFile" (change)="onFileChanged($event.target.files)"  placeholder="Upload file" accept="image/*">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-1" >
+					<button type="button" id="submitBtn" class="btn btn-primary" (click)="_submit()">导入</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

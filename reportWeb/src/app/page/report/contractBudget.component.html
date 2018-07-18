@@ -1,0 +1,123 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>合同预算占用情况表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                    <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="company_code" class="control-label">公司名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="company_code" [(ngModel)]="company_code" name="company_code"  (ngModelChange)="getDepartment($event)">
+                                    <option *ngFor="let company of companyList" [value]="company.value" >{{company.name}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">需求部门: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="department_id" [(ngModel)]="department_id" name="department_id"  (ngModelChange)="department_id=$event">
+                                    <option *ngFor="let department of departmentList" [value]="department.value" >{{department.name}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="contract_code" class="control-label">合同编号: </label>
+                        </td>
+                        <td class="col-md-2">
+                                <input id="contract_code" [(ngModel)]="contract_code" name="contract_code" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="contract_name" class="control-label">合同名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="contract_name" [(ngModel)]="contract_name" name="contract_name" value=""/>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="budget_year" class="control-label">合同预算年份: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="budget_year" [(ngModel)]="budget_year" name="budget_year">
+                                    <option *ngFor="let year of selectYear" [value]="year" >{{year}}</option>
+                            </select>
+                        </td>
+                         <td class="col-md-1" >
+                            <label for="budget_account_name" class="control-label">预算科目: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="budget_account_name" [(ngModel)]="budget_account_name" name="budget_account_name" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">合同起止时间: </label>
+                        </td>
+                        <td class="col-md-3">
+                               <input id="start_Date" type="text" [(ngModel)]="start_Date" name="start_Date" />-
+                               <input id="end_Date" type="text" [(ngModel)]="end_Date" name="end_Date" />
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="project_number" class="control-label">预算立项编号: </label>
+                        </td>
+                        <td class="col-md-2">
+                                <input id="project_number" [(ngModel)]="project_number" name="project_number" value=""/>
+                        </td>
+                        <td colspan="2" class="col-md-2">
+                            <a class="btn btn-primary" (click)="queryContractBudgetList()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportContractBudetList()" >导出Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+                    <table class="table tree table-bordered table-striped table-condensed t_nowrap">
+                        <thead>
+                        <tr>
+                            <th>分公司</th>
+                            <th>合同需求部门</th>
+                            <th>合同编号</th>
+                            <th>合同名称</th>
+                            <th>合同金额（含税）</th>
+                            <th>合同金额（不含税）</th>
+                            <th>合同起时间</th>
+                            <th>合同止时间</th>
+                            <th>合同审批情况</th>
+                            <th>合同类型</th>
+                            <th>合同预算年份</th>
+                            <th>合同预算金额</th>
+                            <th>预算部门</th>
+                            <th>预算科目</th>
+                            <th>预算立项编号</th>
+                            <th>预算立项名称</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let contract of contractList">
+                                <td>{{contract.COMPANY_NAME}}</td>
+                                <td>{{contract.DEPARTMENT_NAME}}</td>
+                                <td>{{contract.CONTRACT_CODE}}</td>
+                                <td>{{contract.CONTRACT_NAME}}</td>
+                                <td style="text-align: right">{{contract.CONTRACT_AMOUNT_TOTAL}}</td>
+                                <td style="text-align: right">{{contract.CONTRACT_AMOUNT}}</td>
+                                <td>{{contract.START_DATE_ACTIVE}}</td>
+                                <td>{{contract.END_DATE_ACTIVE}}</td>
+                                <td>{{contract.CONTRACT_STATUS}}</td>
+                                <td>{{contract.CONTRACT_TYPE}}</td>
+                                <td>{{contract.BUDGET_YEAR}}</td>
+                                <td style="text-align: right">{{contract.BUDGET_AMOUNT}}</td>
+                                <td>{{contract.ORG_NAME}}</td>
+                                <td>{{contract.BUDGET_ACCOUNT_NAME}}</td>
+                                <td>{{contract.PROJECT_NUMBER}}</td>
+                                <td>{{contract.PROJECT_NAME}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </div>
+        <page-content [page]="page" (pagination)="queryContractBudgetList()"></page-content>
+    </div>
+</div>

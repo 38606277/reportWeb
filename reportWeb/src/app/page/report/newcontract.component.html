@@ -1,0 +1,76 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>本年度新增合同列账进度表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="budget_year" class="control-label">年份: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="budget_year" [(ngModel)]="budget_year" name="budget_year">
+                                    <option *ngFor="let year of selectYear" [value]="year" >{{year}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="company_code" class="control-label">公司: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="company_code" [(ngModel)]="company_code" name="company_code"  (ngModelChange)="getDepartment($event)">
+                                    <option *ngFor="let company of companyList" [value]="company.value" >{{company.name}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">部门: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="department_id" [(ngModel)]="department_id" name="department_id">
+                                <option *ngFor="let department of departmentList" [value]="department.value" >{{department.name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" >
+                            <a class="btn btn-primary" (click)="queryNewContract()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportNewContract()" >导出Excel</a>
+                            <a class="btn btn-primary" (click)="exportNewContractDetail()" >导出明细Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+                    <table class="table table-bordered table-striped table-condensed t_nowrap">
+                        <thead>
+                        <tr >
+                            <th class="col-md-1"><input type="checkbox" (click)="getAllCheckboxSelected()"/>全选</th>
+                            <th class="col-md-2">单位名称</th>
+                            <th class="col-md-2">部门名称</th>
+                            <th class="col-md-2">本年度已签订合同金额</th>
+                            <th class="col-md-1">列账总金额</th>
+                            <th class="col-md-1">列账进度</th>
+                            <th class="col-md-3">合同说明</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let newcontract of newContractList;index as i" style="color:royalblue">
+                                <td><input type="checkbox" [value]="i" /></td>
+                                <td>{{newcontract.COMPANY_NAME}}</td>
+                                <td >
+                                    <a class="btn-link" title="点击查看明细" 
+                                    (click)="showContractDetail(newcontract.COMPANY_CODE,newcontract.DEPARTMENT_ID,i,$event)">{{newcontract.DEPARTMENT_NAME}}</a>
+                                </td>
+                                <td style="text-align: right">{{newcontract.HT_AMOUNT}}</td>
+                                <td style="text-align: right">{{newcontract.BZ_AMOUNT}}</td>
+                                <td style="text-align: right">{{newcontract.BZ_PRE}}%</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </div>
+         <page-content [page]="page" (pagination)="queryNewContract()"></page-content>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>网络维修费申报占用情况表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="budget_year" class="control-label">年份: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="budget_year" [(ngModel)]="budget_year" name="budget_year">
+                                    <option *ngFor="let year of selectYear" [value]="year" >{{year}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="company_code" class="control-label">公司: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="company_code" [(ngModel)]="company_code" name="company_code">
+                                    <option *ngFor="let company of companyList" [value]="company.value" >{{company.name}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-2">
+                            <a class="btn btn-primary" (click)="queryNetfee()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportNetworkFee()" >导出Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+                    <table class="table tree table-bordered table-striped table-condensed t_nowrap">
+                        <thead>
+                        <tr>
+                            <th class="col-md-4">预算科目</th>
+                            <th class="col-md-2">本年预算金额</th>
+                            <th class="col-md-2">申报完成金额</th>
+                            <th class="col-md-1">申报进度</th>
+                            <th class="col-md-2">预算占用金额<br>(预算系统)</th>
+                            <th class="col-md-1">占用进度</th>
+                        </tr>
+                        </thead>
+                        <tbody #tree >
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+</div>

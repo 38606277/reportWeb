@@ -1,0 +1,58 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>科目映射表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1">
+                            <label for="accounting_subject_name" class="control-label">会计科目名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="accounting_subject_name" [(ngModel)]="accounting_subject_name" name="accounting_subject_name">
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="static_budget_account_name" class="control-label">统计科目名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="static_budget_account_name" [(ngModel)]="static_budget_account_name" name="static_budget_account_name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <a class="btn btn-primary" (click)="queryBudgetRelation()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportBudgetRelation()" >导出Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+            <table class="table table-bordered table-striped table-condensed t_nowrap">
+                <thead>
+                <tr>
+                    <th>会计科目代码</th>
+                    <th>会计科目名称</th>
+                    <th>基础科目代码</th>
+                    <th>基础科目名称</th>
+                    <th>统计科目代码</th>
+                    <th>统计科目名称</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let budgetRelation of budgetRelationList">
+                        <td>{{budgetRelation.ACCOUNTING_SUBJECT_CODE}}</td>
+                        <td>{{budgetRelation.ACCOUNTING_SUBJECT_NAME}}</td>
+                        <td>{{budgetRelation.BASE_BUDGET_ACCOUNT_CODE}}</td>
+                        <td>{{budgetRelation.BASE_BUDGET_ACCOUNT_NAME}}</td>
+                        <td>{{budgetRelation.STATIC_BUDGET_ACCOUNT_CODE}}</td>
+                        <td>{{budgetRelation.STATIC_BUDGET_ACCOUNT_NAME}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <page-content [page]="page" (pagination)="queryBudgetRelation()"></page-content>
+    </div>
+</div>

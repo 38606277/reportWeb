@@ -1,0 +1,63 @@
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="page-header">
+				<h3>{{operTitle}}</h3>
+			</div>
+			<form class="form-horizontal" (ngSubmit)="_submit()">
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">权限类型名称: </label>
+					<div class="col-md-4">
+                        <input class="form-control border_c" id="authtype_name" type="text" [(ngModel)]="authType.authtype_name" name="authType.authtype_name" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">权限类型描述: </label>
+					<div class="col-md-4">
+                        <input class="form-control border_c" id="authtype_desc" type="text" [(ngModel)]="authType.authtype_desc" name="authType.authtype_desc" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">权限类型分类: </label>
+					<div class="col-md-4">
+                        <input class="form-control border_c" id="authtype_class" type="text" [(ngModel)]="authType.authtype_class" name="authType.authtype_class" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">用户实体: </label>
+					<div class="col-md-4">
+                        <input class="form-control border_c" id="use_object" type="text" [(ngModel)]="authType.use_object" name="authType.use_object" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">数据库: </label>
+					<div class="col-md-4">
+						<select id="auth_db" [(ngModel)]="authType.auth_db" name="authType.auth_db" [disabled]="operType=='view'">
+                        	<option *ngFor="let dbtype of dbtyps" [value]="dbtype.dbType" >{{dbtype.dbType}}</option>
+                    	</select>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">Sql: </label>
+					<div class="col-md-4">
+						<textarea class="form-control border_c" id="auth_sql" [(ngModel)]="authType.auth_sql" rows="3" name="authType.auth_sql" [readonly]="operType=='view'"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="name" class="col-md-2 control-label">权限名称: </label>
+					<div class="col-md-4">
+                        <input class="form-control border_c" id="auth_name" type="text" [(ngModel)]="authType.auth_name" name="authType.auth_name" required [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-1" *ngIf="operType!='view'">
+						 <button type="submit" class="btn btn-primary">保存</button>
+					</div>
+                    <div class="col-md-1" [ngClass]="{'col-md-offset-2':operType=='view'}">
+						 <a [routerLink]="['/index/system/authType']" class="btn btn-primary">返回</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

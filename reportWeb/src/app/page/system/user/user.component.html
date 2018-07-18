@@ -1,0 +1,50 @@
+<div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>用户管理</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <input type="text" name="name" class="form-control" [(ngModel)]="user.userName" #userName (keyup)="getUserList(null)" placeholder="输入查询用户名">
+                </div>
+                <div class="col-md-offset-10">
+                    <a class="btn btn-primary" [routerLink]="['../../user/add',0]" [queryParams]="{userName:userName.value}">新建用户</a>
+                </div>
+            </div>
+
+            <table id="example" class="table table-hover datatable" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th class="col-md-2">用户编号</th>
+                    <th class="col-md-2">用户名</th>
+                    <th class="col-md-2">角色</th>
+                    <th class="col-md-3">创建时间</th>
+                    <!--
+                    <th class="col-md-1">起始时间</th>
+                    <th class="col-md-1">结束时间</th>-->
+                    <!--<th class="col-md-3">备注</th>-->
+                    <th class="col-md-3">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of userList" >
+                    <td>{{user.userId}}</td>
+                    <td><a [routerLink]="['../../user/view',user.id]" [queryParams]="{userName:userName.value}">{{user.userName}}</a></td>
+                    <td>{{user.isAdminText}}</td>
+                    <td>{{user.creationDate}}</td>
+                    <!--<td>{{user.startDate}}</td>
+                    <td>{{user.endDate}}</td>-->
+                    <!--<td>{{user.description}}</td>-->
+                    <td>
+                        <a type="button" class="btn btn-link" [routerLink]="['../../user/update',user.id]" [queryParams]="{userName:userName.value}">修改</a>
+                        <a type="button" class="btn btn-link" (click)="deleteUser(user.id)">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <page-content [page]="page" (pagination)="getUserList($event)"></page-content>
+        </div>
+    </div>
+</div>

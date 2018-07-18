@@ -1,0 +1,75 @@
+<div class="panel">
+	<div class="panel-heading">
+		<h3>文件导入
+		</h3>
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="cities" class="col-md-2 control-label">地市: </label>
+				<div class="col-md-4 " >
+					<select [(ngModel)]="cities" name="cities" >
+						<option [value]="3221" >济南</option>
+						<option [value]="3231" >泰安</option>
+						<option [value]="3228" >潍坊</option>
+						<option [value]="3230" >德州</option>
+						<option [value]="3229" >滨州</option>
+						<option [value]="3237" >莱芜</option>
+						<option [value]="3222" >青岛</option>
+						<option [value]="3227" >烟台</option>
+						<option [value]="3236" >日照</option>
+						<option [value]="3225" >东营</option>
+						<option [value]="3232" >济宁</option>
+						<option [value]="3233" >荷泽</option>
+						<option [value]="3234" >聊城</option>
+						<option [value]="3235" >临沂</option>
+						<option [value]="3224" >枣庄</option>
+						<option [value]="3223" >淄博</option>
+						<option [value]="3226" >威海</option>
+						<option [value]="3210" >省本部</option>
+						<option [value]="3218" >培训中心</option>
+						<option [value]="3219" >客服一中心</option>
+						<option [value]="3220" >客服二中心</option>
+						<option [value]="3281" >中移公司</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="exceltype" class="col-md-2 control-label">报表类型: </label>
+				<div class="col-md-4 " >
+					<select [(ngModel)]="excelType" name="excelType" >
+						<option [value]="1" >资产明细表</option>
+						<option [value]="4" >资产报废表</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="exceltype" class="col-md-2 control-label">资产属性: </label>
+				<div class="col-md-4 " >
+					<select [(ngModel)]="asset" name="asset" >
+						<option value="FA" >固定资产</option>
+						<option value="IA" >无形资产</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="exceltype" class="col-md-2 control-label">会计期间: </label>
+				<div class="col-md-4 " >
+					<input type="text"  [(ngModel)]="period" placeholder="例如:MAY-2017" id="period" name="period"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="file-1" class="col-md-2 control-label" style="float:left">Excel文件:</label>
+				<div class="col-md-10">
+					<!--<input id="excelFile" type="file" >-->
+					<input type="file" id="excelFile" (change)="onFileChanged($event.target.files)"  placeholder="Upload file" accept="image/*">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-1" >
+					<button type="button" id="submitBtn" class="btn btn-primary" (click)="_submit()">导入</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

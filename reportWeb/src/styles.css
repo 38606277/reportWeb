@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+.f_table{margin-top:-20px;}
+.t_result{overflow:auto;margin-top:-20px;}
+table.t_nowrap{white-space: nowrap;}
+.content .panel>h4{margin-top:-10px;}
+.fix_screen{
+    position:fixed;
+    margin-left:10px;
+    z-index:15;
+    background: #f8f8f8;
+    overflow:hidden;
+}

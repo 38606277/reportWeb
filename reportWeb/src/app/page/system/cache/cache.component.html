@@ -1,0 +1,155 @@
+<div class="clearfix">
+    <ul class="nav nav-tabs navtab-bg navbar-left ">
+                <li  class="active"><a href="#cache" data-toggle="tab">账套缓存</a></li>
+                <li ><a href="#config" data-toggle="tab">缓存配置</a></li>
+    </ul>
+</div>
+<div id="tab1" class="tab-content" >
+    <div class="tab-pane in active" id="cache">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row form-group">
+                    <fieldset>
+                        <legend>缓存启动</legend>
+                        <label for="userId" class="col-md-1 control-label">缓存类型: </label>
+                        <div class="col-md-2">
+                            <select id="cacheType" [(ngModel)]="addCache.cacheType" name="addCache.cacheType" #cache_type (ngModelChange)="selectCacheTypeChange1($event)">
+								<option *ngFor="let cacheType of cacheTypes1" [value]="cacheType.type" >{{cacheType.text}}</option>
+						    </select>
+                        </div>
+                        <label for="bookId" class="col-md-1 control-label">账套: </label>
+                        <div class="col-md-2">
+                            <input class="form-control border_c" id="booId" type="text" [(ngModel)]="addCache.bookId" name="addCache.bookId"/>
+                        </div>
+                        <label for="startMonth" class="col-md-1 control-label">账期起始: </label>
+                        <div class="col-md-2">
+                            <input class="form-control border_c" id="startMonth" type="text" [(ngModel)]="addCache.startMonth" name="addCache.startMonth"/>
+                        </div>
+                        <label for="endMonth" class="col-md-1 control-label">账期截止: </label>
+                        <div class="col-md-2">
+                            <input class="form-control border_c" id="endMonth" type="text" [(ngModel)]="addCache.endMonth" name="addCache.endMonth"/>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="row form-group">
+                   <div class="col-md-offset-10">
+                            <a class="btn btn-primary" (click)="restartCache(cache_type.value)" >启动缓存</a>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <fieldset>
+                        <legend>缓存查询</legend>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input type="text" name="name" class="form-control" [(ngModel)]="cache.period" #period (keyup)="getCachesByPeriod(cache_type.value)" placeholder="输入查询账期">
+                            </div>
+                            <div class="col-md-offset-6 col-md-1">
+                            <a class="btn btn-primary" (click)="getCacheList(cache_type.value)" ><i class="md md-refresh">刷新</i></a>
+                            </div>
+                        </div>
+                        <table id="example" class="table table-hover datatable" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="col-md-1">账套</th>
+                                <th class="col-md-1">账期</th>
+                                <th class="col-md-1">加载时间</th>
+                                <th class="col-md-1">记录数</th>
+                                <th class="col-md-1">状态</th>
+                                <th class="col-md-1">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let cache of cacheList" >
+                                <td>{{cache.bookId}}</td>
+                                <td>{{cache.period}}</td>
+                                <td>{{cache.cacheTime}}</td>
+                                <td><a href="javascript:void(0)" (click)="showCacheDetail(cache)">{{cache.count}}</a></td>
+                                <td>{{cache.status}}</td>
+                                <td>
+                                    <a type="button" class="btn btn-pink" (click)="removeCache(cache,cache_type.value)" title="移除"><i class="md md-clear"></i></a>
+                                    <a type="button" class="btn btn-primary" (click)="reloadCache(cache,cache_type.value)" title="重新加载"><i class="md md-refresh"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="config">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row form-group">
+                    <fieldset>
+                        <legend>定时作业计划</legend>
+                        <label for="userId" class="col-md-1 control-label">缓存类型: </label>
+                        <div class="col-md-2">
+                            <select id="cacheType" [(ngModel)]="addConfig.cacheType" name="addConfig.cacheType" (ngModelChange)="selectCacheTypeChange($event)">
+								<option *ngFor="let cacheType of cacheTypes" [value]="cacheType.type" >{{cacheType.text}}</option>
+						    </select>
+                        </div>
+                        <label for="cacheConfigBookId" class="col-md-1 control-label" [hidden]="addConfig.cacheType&&addConfig.cacheType!='gl'&&addConfig.cacheType!='allocate'">账套: </label>
+                        <div class="col-md-2" [hidden]="addConfig.cacheType&&addConfig.cacheType!='gl'&&addConfig.cacheType!='allocate'">
+                            <input class="form-control border_c" id="cacheConfigBookId" type="text" [(ngModel)]="addConfig.bookId" name="addConfig.bookId"/>
+                        </div>
+                        <label for="cacheMonth" class="col-md-1 control-label" [hidden]="addConfig.cacheType&&addConfig.cacheType!='gl'&&addConfig.cacheType!='allocate'">账期月份: </label>
+                        <div class="col-md-2" [hidden]="addConfig.cacheType&&addConfig.cacheType!='gl'&&addConfig.cacheType!='allocate'">
+                            <input class="form-control border_c" id="cacheMonth" type="text" [(ngModel)]="addConfig.cacheMonth" name="addConfig.cacheMonth"/>
+                        </div>
+                        <label for="cycleTime" class="col-md-1 control-label">循环周期: </label>
+                        <div class="col-md-2">
+                            <select id="cycleTime" [(ngModel)]="addConfig.cycleTime" name="addConfig.cycleTime"  (ngModelChange)="selectCycleTimeChange($event)">
+								<option *ngFor="let cycleTime of cycleTimes" [value]="cycleTime.time" >{{cycleTime.text}}</option>
+						    </select>
+                        </div>
+                        
+                    </fieldset>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-offset-10">
+                            <a class="btn btn-primary" (click)="addCacheConfig()" >启动作业</a>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <fieldset>
+                        <legend>作业计划查询</legend>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input type="text" name="name" class="form-control" [(ngModel)]="cacheConfig.cacheMonth" (keyup)="getCacheConfigList()" placeholder="输入查询账期">
+                            </div>
+                            <div class="col-md-offset-6 col-md-1">
+                            <a class="btn btn-primary" (click)="getCacheConfigList()" ><i class="md md-refresh">刷新</i></a>
+                            </div>
+                        </div>
+                        <table id="example" class="table table-hover datatable" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="col-md-1">缓存类型</th>
+                                <th class="col-md-1">账套</th>
+                                <th class="col-md-1">账期</th>
+                                <th class="col-md-1">循环周期</th>
+                                <th class="col-md-1">创建时间</th>
+                                <th class="col-md-1">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let cacheConfig of cacheConfigList" >
+                                <td>{{cacheConfig.cacheTypeText}}</td>
+                                <td>{{cacheConfig.bookId}}</td>
+                                <td>{{cacheConfig.cacheMonth}}</td>
+                                <td>{{cacheConfig.cycleTimeText}}</td>
+                                <td>{{cacheConfig.createDate}}</td>
+                                <td>
+                                    <a type="button" class="btn btn-pink" (click)="removeCacheConfig(cacheConfig)" title="移除"><i class="md md-clear"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

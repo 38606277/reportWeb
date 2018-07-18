@@ -1,0 +1,88 @@
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="page-header">
+				<h3>{{operTitle}}</h3>
+			</div>
+			<form class="form-horizontal" #f="ngForm" (ngSubmit)="_submit()">
+				<div class="form-group">
+					 <label for="regisType" class="col-md-2 control-label">用户归属: </label>
+					 <div class="col-md-4 " >
+						<select id="regisType" [(ngModel)]="user.regisType" name="user.regisType"  required [disabled]="operType=='view'||operType=='update'" >
+								<option *ngFor="let userImport of userImports" [value]="userImport.importKey" >{{userImport.importValue}}</option>
+						</select>
+					 </div>
+					 <label for="isAdmin" class="col-md-2 control-label">角色: </label>
+					 <div class="col-md-4 " >
+						<select id="isAdmin" [(ngModel)]="user.isAdmin" name="user.isAdmin" required [disabled]="operType=='view'"  (ngModelChange)="selectChange($event)">
+								<option *ngFor="let userRole of userRoles" [value]="userRole.roleType" >{{userRole.roleName}}</option>
+						</select>
+					 </div>
+				</div>
+				<div class="form-group">
+					 <label for="userId" class="col-md-2 control-label">用户编号: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="userId" type="text" [(ngModel)]="user.userId" #user_id="ngModel" UserIdValidator name="user.userId" required [readonly]="operType!='add'"/>
+					</div>
+					 <label for="userName" class="col-md-2 control-label">用户名称: </label>
+					<div class="col-md-3 input-group">
+						<input class="form-control border_c" id="userName" type="text" [(ngModel)]="user.userName" #user_name="ngModel" UserNameValidator name="user.userName" required [readonly]="(operType!='add')||(operType=='add'&&user.regisType=='erp')"/>
+						<span id="search" *ngIf="user.regisType=='erp'" (click)="showErpUsers()" class="input-group-addon"><i class="md md-search"></i></span>
+					</div>
+				</div>
+				<div class="form-group" [hidden]="((!user_id.valid&&user_id.value==null)||(user_id.valid))&&((!user_id.valid&&user_name.value==null)||user_name.valid)">
+					<div class="col-md-offset-2 col-md-4">
+						<div *ngIf="user_id.value==''&&!user_id.valid" style="color:red;">用户编号不能为空!</div>
+						<div *ngIf="user_id.value!=null&&user_id.value!=''&&!user_id.valid" style="color:red;">用户编号必须唯一!</div>
+					</div>
+					<div class="col-md-offset-2 col-md-4">
+						<div *ngIf="user_name.value==''&&!user_name.valid" style="color:red;">用户名称不能为空!</div>
+					    <div *ngIf="user_name.value!=null&&user_name.value!=''&&!user_name.valid" style="color:red;">用户名称必须唯一!</div>
+					</div>
+				</div>
+				<div></div>
+				<div [hidden]="user.regisType=='erp'">
+				<div class="form-group" >
+					 <label for="encryptPwd" class="col-md-2 control-label">用户密码: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="encryptPwd" type="password" [(ngModel)]="user.encryptPwd" #encryptPwd="ngModel" name="user.encryptPwd" [required]="user.regisType!='erp'" [readonly]="operType=='view'"/>
+					</div>
+					<label for="ensurePwd" [hidden]="operType=='view'||encryptPwd.pristine" class="col-md-2 control-label">确认密码: </label>
+					<div class="col-md-4" [hidden]="operType=='view'||encryptPwd.pristine"><!--  -->
+						<input class="form-control border_c" id="ensurePwd" type="password" [(ngModel)]="user.ensurePwd" #ensurePwd name="user.ensurePwd" [required]="user.regisType!='erp'&&!encryptPwd.pristine" [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group" [hidden]="ensurePwd.value==''||(ensurePwd.value!=''&&user.encryptPwd==user.ensurePwd)">
+					<div class="col-md-offset-2 col-md-4">
+						<div style="color:red;">两个用户密码不相等!</div>
+					</div>
+				</div>
+				</div>
+                <div class="form-group">
+					 <label for="startDate" class="col-md-2 control-label">生效时间: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="startDate" type="text" [(ngModel)]="user.startDate" name="user.startDate" [readonly]="operType=='view'"/>
+					</div>
+					 <label for="endDate" class="col-md-2 control-label">失效时间: </label>
+					<div class="col-md-4">
+						<input class="form-control border_c" id="endDate" type="text"  [(ngModel)]="user.endDate" name="user.endDate" [readonly]="operType=='view'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label for="description" class="col-md-2 control-label">备注: </label>
+					<div class="col-md-4">
+						<textarea class="form-control border_c" id="description" [(ngModel)]="user.description" rows="3" name="user.description" [readonly]="operType=='view'"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-1" [hidden]="this.operType=='view'">
+						 <button type="submit" class="btn btn-primary" [disabled]="!f.valid">保存</button>
+					</div>
+                    <div class="col-md-offset-2 col-sm-1" >
+						 <a [routerLink]="['/index/system/user/userList']" [queryParams]="{userName:userName}" class="btn btn-primary">返回</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

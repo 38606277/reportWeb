@@ -1,0 +1,154 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>部门预算完成情况明细表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                    <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="budget_year" class="control-label">年份: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="budget_year" [(ngModel)]="budget_year" name="budget_year">
+                                    <option *ngFor="let year of selectYear" [value]="year" >{{year}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="company_code" class="control-label">公司: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="company_code" [(ngModel)]="company_code" name="company_code"  (ngModelChange)="getDepartment($event)">
+                                    <option *ngFor="let company of companyList" [value]="company.value" >{{company.name}}</option>
+                            </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">部门名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <select id="department_id" [(ngModel)]="department_id" name="department_id"  (ngModelChange)="department_id=$event">
+                                <option *ngFor="let department of departmentList" [value]="department.value" >{{department.name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">预算立项编号: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="project_number" [(ngModel)]="project_number" name="project_number" value=""/>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">预算立项名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="project_name" [(ngModel)]="project_name" name="project_name" value=""/>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">预算科目名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="budget_account_name" [(ngModel)]="budget_account_name" name="budget_account_name" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">合同编号: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="document_code" [(ngModel)]="document_code" name="document_code" value=""/>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">合同名称: </label>
+                        </td>
+                        <td class="col-md-2">
+                                <input id="document_description" [(ngModel)]="document_description" name="document_description" value=""/>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">订单号: </label>
+                        </td>
+                        <td class="col-md-2">
+                                <input id="order_number" [(ngModel)]="order_number" name="order_number" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="department_id" class="control-label">报账单编号: </label>
+                        </td>
+                        <td class="col-md-2">
+                            <input id="bz_document_number" [(ngModel)]="bz_document_number" name="bz_document_number" value=""/>
+                        </td>
+                        <td colspan="4" class="col-md-2">
+                            <a class="btn btn-primary" (click)="queryOrgList()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportOrgList()" >导出Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+                    <table class="table table-bordered table-striped table-condensed t_nowrap">
+                        <thead>
+                        <tr >
+                            <th>公司名称</th>
+                            <th>预算部门</th>
+                            <th>预算科目</th>
+                            <th>预算立项编号</th>
+                            <th>预算立项名称</th>
+                            <th>预算立项当前审批人</th>
+                            <th>已审批立项金额</th>
+                            <th>已提交合同金额</th>
+                            <th>合同编号</th>
+                            <th>合同名称</th>
+                            <th>合同当前审批人</th>
+                            <th>合同价款</th>
+                            <th>合同受益期起</th>
+                            <th>合同受益期止</th>
+                            <th>合同供应商名称</th>
+                            <th>需求单位</th>
+                            <th>需求提交人</th>
+                            <th>报账单编号</th>
+                            <th>报账单起草人</th>
+                            <th>列账价款</th>
+                            <th>报账单当前审批人</th>
+                            <th *ngIf="company_code=='3510'||company_code=='3511'">MIS订单号</th>
+                            <th *ngIf="company_code=='3510'||company_code=='3511'">MIS订单金额</th>
+                            <th *ngIf="company_code=='3510'||company_code=='3511'">MIS订单未列账金额</th>
+                            <th *ngIf="company_code=='3510'||company_code=='3511'">MIS订单开单金额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let org of orgList">
+                                <td>{{org.COMPANY_NAME}}</td>
+                                <td>{{org.DEPARTMENT_NAME}}</td>
+                                <td>{{org.BUDGET_ACCOUNT_NAME}}</td>
+                                <td>{{org.PROJECT_NUMBER}}</td>
+                                <td>{{org.PROJECT_NAME}}</td>
+                                <td>{{org.BMS_CURRENT_PERSON}}</td>
+                                <td style="text-align: right">{{org.APPROVED_BUDGET_AMOUNT}}</td>
+                                <td style="text-align: right">{{org.SUBMIT_HT_AMOUNT}}</td>
+                                <td>{{org.DOCUMENT_CODE}}</td>
+                                <td>{{org.DOCUMENT_DESCRIPTION}}</td>
+                                <td>{{org.HT_CURRENT_PERSON}}</td>
+                                <td style="text-align: right">{{org.HT_AMOUNT}}</td>
+                                <td>{{org.HT_PROFIT_FROM}}</td>
+                                <td>{{org.HT_PROFIT_TO}}</td>
+                                <td>{{org.HT_SUPPLIER}}</td>
+                                <td>{{org.FROM_DEPT}}</td>
+                                <td>{{org.DOCUMENT_CREATE_BY}}</td>
+                                <td>{{org.BZ_DOCUMENT_NUMBER}}</td>
+                                <td>{{org.BZ_DOCUMENT_CREATE_BY}}</td>
+                                <td style="text-align: right">{{org.BZ_AMOUNT}}</td>
+                                <td>{{org.BZ_CURRENT_PERSON}}</td>
+                                <td *ngIf="company_code=='3510'||company_code=='3511'">{{org.ORDER_NUMBER}}</td>
+                                <td style="text-align: right" *ngIf="company_code=='3510'||company_code=='3511'">{{org.TOTAL_ORDER_AMOUNT}}</td>
+                                <td style="text-align: right" *ngIf="company_code=='3510'||company_code=='3511'">{{org.TOTAL_NOT_IN_ACCOUNT}}</td>
+                                <td style="text-align: right" *ngIf="company_code=='3510'||company_code=='3511'">{{org.ORDER_BILL_AMOUNT}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </div>
+        <page-content [page]="page" (pagination)="queryOrgList()"></page-content>
+    </div>
+</div>

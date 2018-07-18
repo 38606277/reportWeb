@@ -1,0 +1,71 @@
+<div class="panel">
+    <div class="fix_screen" style="display:none;">
+    </div>
+    <h4><b>预算完成情况汇总表</b></h4>
+    <div class="panel-body">
+        <div class="row form-group">
+                <table class="table table-bordered table-striped table-condensed f_table">
+                    <tr>
+                        <td class="col-md-1" >
+                            <label for="budget_year" class="control-label">年份: </label>
+                        </td>
+                        <td class="col-md-2">
+                           <select id="budget_year" [(ngModel)]="budget_year" name="budget_year">
+                            <option *ngFor="let year of selectYear" [value]="year" >{{year}}</option>
+                           </select>
+                        </td>
+                        <td class="col-md-1" >
+                            <label for="budget_month" class="control-label">月份: </label>
+                        </td>
+                        <td class="col-md-2">
+                           <select id="budget_month" [(ngModel)]="budget_month" name="budget_month">
+                            <option *ngFor="let month of selectMonth" [value]="month" >{{month}}</option>
+                           </select>
+                        </td>
+                        <td class="col-md-1" >
+                           <label for="company_code" class="control-label">公司: </label>
+                        </td>
+                        <td class="col-md-2">
+                           <select id="company_code" [(ngModel)]="company_code" name="company_code"  (ngModelChange)="company_code=$event">
+                            <option *ngFor="let company of companyList" [value]="company.value" >{{company.name}}</option>
+                           </select>
+                        </td>
+                        <td class="col-md-1" >
+                           <label for="budget_account_name" class="control-label">预算科目: </label>
+                        </td>
+                        <td class="col-md-2">
+                           <select id="budget_account_code" [(ngModel)]="budget_account_code" name="budget_account_code"  (ngModelChange)="budget_account_code=$event">
+                            <option *ngFor="let budgetAccount of budgetAccountList" [value]="budgetAccount.budgetAccountCode" >{{budgetAccount.budgetAccountName}}</option>
+                           </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                            <a class="btn btn-primary" (click)="queryBudgetDetail()" >查询</a>
+                            <a class="btn btn-primary" (click)="_reset()" >重置</a>
+                            <a class="btn btn-primary" (click)="exportBudgetDetail()" >导出Excel</a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="loading"></div> 
+        <div class="row form-group t_result">
+                    <table class="table tree table-bordered table-striped table-condensed t_nowrap">
+                        <thead>
+                        <tr >
+                            <th class="col-md-3">预算科目</th>
+                            <th class="col-md-1">本年预算金额</th>
+                            <th class="col-md-1">立项金额</th>
+                            <th class="col-md-1">预算立项进度</th>
+                            <th class="col-md-1">列账总金额(含计提)</th>
+                            <th class="col-md-1">预算完成进度</th>
+                            <th class="col-md-1">计提金额</th>
+                            <th class="col-md-1">列账进度(不含计提)</th>
+                        </tr>
+                        </thead>
+                        <tbody #tree >
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+</div>

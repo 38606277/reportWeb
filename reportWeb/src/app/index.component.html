@@ -1,0 +1,255 @@
+<!-- Begin page -->
+<div id="wrapper" >
+
+    <!-- Top Bar Start -->
+    <div class="topbar">
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <div class="text-center">
+                <a [routerLink]="['../index']" class="logo"><i class="md md-terrain"></i> <span>财务报表平台</span></a>
+            </div>
+        </div>
+        <!-- Button mobile view to collapse sidebar menu -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="">
+                    <div class="pull-left">
+                        <button class="button-menu-mobile open-left">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <span class="clearfix"></span>
+                    </div>
+                    <form class="navbar-form pull-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control search-bar" placeholder="查找aa...">
+                        </div>
+                        <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                    </form>
+
+                    <ul class="nav navbar-nav navbar-right pull-right">
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" (click)="getIbas2DownloadPath()" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true"><i class="md md-settings"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ibas2DownloadPath}}"><i class="md md-file-download">插件下载</i></a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown hidden-xs">
+                            <a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+                                <i class="md md-notifications"></i> <span class="badge badge-xs badge-danger">3</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-lg">
+                                <li class="text-center notifi-title">通知</li>
+                                <li class="list-group">
+                                    <!-- list item-->
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                            <em class="fa fa-user-plus fa-2x text-info"></em>
+                                            </div>
+                                            <div class="media-body clearfix">
+                                            <div class="media-heading">新用户注册</div>
+                                            <p class="m-0">
+                                                <small>你有10条未读的消息</small>
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- list item-->
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                            <em class="fa fa-diamond fa-2x text-primary"></em>
+                                            </div>
+                                            <div class="media-body clearfix">
+                                            <div class="media-heading">新闻设置</div>
+                                            <p class="m-0">
+                                                <small>有新的更新可用</small>
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- list item-->
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                            <em class="fa fa-bell-o fa-2x text-danger"></em>
+                                            </div>
+                                            <div class="media-body clearfix">
+                                            <div class="media-heading">更新</div>
+                                            <p class="m-0">
+                                                <small>有
+                                                    <span class="text-primary">2</span> 条新的更新可用</small>
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- last list item -->
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <small>看所有的通知</small>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="hidden-xs">
+                            <a href="javascript:void(0)" id="btn-fullscreen" class="waves-effect waves-light"><i class="md md-crop-free"></i></a>
+                        </li>
+                        <!--<li class="hidden-xs">
+                            <a href="javascript:void(0)" class="right-bar-toggle waves-effect waves-light"><i class="md md-chat"></i></a>
+                        </li>-->
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="../images/users/avatar-3.jpg" alt="user-img" class="img-circle"> </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" (click)="showUserView()"><i class="md md-face-unlock"></i> 个人信息</a></li>
+                                <li><a href="javascript:void(0)"><i class="md md-settings"></i> 设置</a></li>
+                                <li><a href="javascript:void(0)"><i class="md md-lock"></i> 锁屏</a></li>
+                                <li><a href="javascript:void(0)" (click)="_exit()"><i class="md md-settings-power"></i> 退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- Top Bar End -->
+
+
+    <!-- ========== Left Sidebar Start ========== -->
+
+    <div class="left side-menu">
+        <div class="sidebar-inner slimscrollleft">
+
+            <!--- Divider -->
+            <div id="sidebar-menu">
+                <ul>
+                    <li class="has_sub" [hidden]="isAdmin==0&&menuList.get(100)==null">
+                        <a [routerLink]="['../index']" class="waves-effect active"><i class="md md-home"></i><span> 首页 </span></a>
+                    </li>
+                    <!--
+                    <li class="has_sub">
+                        <a href="javascript:void(0)" class="waves-effect"><i class="md md-assessment"></i><span> 主题分析 </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li><a [routerLink]="['theme','income']">收入主题</a></li>
+                            <li><a [routerLink]="['theme','cost']">成本分析</a></li>
+                            <li><a href="javascript:void(0);">资产分析</a></li>
+                            <li><a [routerLink]="['theme','asset']">Echarts</a></li>
+                            <li><a [routerLink]="['theme','pivot']">PivotTable</a></li>
+                        </ul>
+                    </li>-->
+                    
+                    <li class="has_sub" [hidden]="isAdmin==0&&menuList.get(101)==null">
+                        <a href="javascript:void(0)"  class="waves-effect" ><i class="md md-share"></i><span> 我的报表 </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="recursion" [myReports]="myReports"></ul>
+                    </li>
+                    
+                    <li class="has_sub" [hidden]="isAdmin==0&&menuList.get(102)==null">
+                        <a href="javascript:void(0)" class="waves-effect"><i class="md md-share"></i><span> 报表查询 </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="temrecursion" [myTemplates]="myTemplates"></ul>
+                    </li>
+                    <li class="has_sub">
+                        <a href="javascript:void(0)" class="waves-effect"><i class="md md-share"></i><span>成本费用跟踪查询平台</span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="budgetReportCursion" [budgetReportTemplates]="budgetReportTemplates"></ul>
+                        <!--
+                        <ul>
+                            <li class="has_sub">
+                                <a href="javascript:void(0)" class="waves-effect"><span>公司汇总</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <ul>
+                                    <li><a [routerLink]="['report','ztree']">按公司维度</a></li>
+                                    <li><a [routerLink]="['report','networkfee']">网维修费申报占用情况</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0)" class="waves-effect"><span>部门汇总</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <ul>
+                                    <li><a [routerLink]="['report','newcontract']">本年度新增合同列账进度</a></li>-->
+                                    <!--<li><a [routerLink]="['report','keyfee']">重点费用(维修费)</a></li>-->
+                               <!-- </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0)" class="waves-effect"><span>进度</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <ul>
+                                    <li><a [routerLink]="['report','purchase']">采购进度</a></li>
+                                    <li><a [routerLink]="['report','signcontract']">合同签订进度</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0)" class="waves-effect"><span>合同信息</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <ul>
+                                    <li><a [routerLink]="['report','contractPayment']">合同列账及付款汇总</a></li>
+                                    <li><a [routerLink]="['report','contractPaymentDetail']">合同列账及付款明细</a></li>
+                                    <li><a [routerLink]="['report','contractBudget']">合同预算明细</a></li>
+                                </ul>
+                            </li>
+							<li><a [routerLink]="['report','orgList']">部门明细</a></li>
+                            <li><a [routerLink]="['report','stockBudgetInfo']">存货预算完成情况</a></li>
+                        </ul>-->
+                    </li>
+                    <!--
+                    <li class="has_sub">
+                        <a href="javascript:void(0)" class="waves-effect"><i class="md md-input"></i><span> 数据填报 </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li class="has_sub">
+                                <a href="javascript:void(0)" class="waves-effect"><span>分配任务</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0)" class="waves-effect"><span>填报任务</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <ul>
+                                    <li><a href="javascript:void(0)" class="waves-effect" (click)="getTaskList(1)">待办任务<span class="pull-right"><i class="md md-add"></i></span></a>
+                                        <ul>
+                                            <li *ngFor="let task of unfinishTaskList" class="has_sub">
+                                                <a [routerLink]="['form/task',task.user_id,task.report_id]"  class="waves-effect"><span>{{task.report_name}}</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="javascript:void(0)" class="waves-effect" (click)="getTaskList(3)">已办任务<span class="pull-right"><i class="md md-add"></i></span></a>
+                                        <ul>
+                                            <li *ngFor="let task of finishedTaskList" class="has_sub">
+                                                <a [routerLink]="['form/task',task.user_id,task.report_id]"  class="waves-effect"><span>{{task.report_name}}</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>-->
+                    <li class="has_sub" [hidden]="isAdmin==0">
+                        <a href="javascript:void(0)" class="waves-effect"><i class="md md-settings"></i><span> 系统管理 </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li><a [routerLink]="['system','dbs']">连接管理</a></li>
+							<li><a [routerLink]="['system','rule']">权限管理</a></li>
+                            <!--<li><a [routerLink]="['system','webService']">服务配置</a></li>-->
+                            <li><a [routerLink]="['system','cache']">缓存管理</a></li>
+                            <li><a [routerLink]="['system','user','userList']" >用户管理</a></li>
+                            <li><a [routerLink]="['system','authType']" >权限类型管理</a></li>
+                            <!--<li><a [routerLink]="['system','dictionary']" >数据字典</a></li>-->
+                            <!--<li *ngIf="isAdmin=='1'"><a [routerLink]="['system','excel']" >Excel导入</a></li>
+                            <li *ngIf="isAdmin=='1'"><a [routerLink]="['system','uploadFile']" >文件导入</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- Left Sidebar End --> 
+
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->                      
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+        <!--<div class="container">
+                <div ng-view></div>-->
+                <router-outlet></router-outlet>
+            <!--</div>--> <!-- container -->
+        </div> <!-- content -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Right content here -->
+    <!-- ============================================================== -->
+</div>
+<span defaultOverlayTarget></span>

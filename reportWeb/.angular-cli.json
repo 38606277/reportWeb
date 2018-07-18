@@ -1,0 +1,96 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "report2"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "web",
+      "assets": [
+        "assets",
+        "images"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "css/bootstrap.min.css",
+        "assets/font-awesome/css/font-awesome.min.css",
+        "css/material-design-iconic-font.min.css",
+        "css/animate.css",
+        "css/waves-effect.css",
+        "css/helper.css",
+        "css/style.css",
+        "css/app.css",
+        "css/c3.min.css",
+        "css/pivot.css",
+        "../node_modules/bootstrap-fileinput/css/fileinput.min.css",
+        "../node_modules/foundation-datepicker/css/foundation-datepicker.min.css",
+        "../node_modules/jquery-treegrid/css/jquery.treegrid.css",
+        "styles.css"
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "js/waves.js",
+        "js/wow.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/echarts/dist/echarts.min.js",
+        "../node_modules/jquery.nicescroll/jquery.nicescroll.js",
+        "../node_modules/jquery.scrollto/jquery.scrollTo.min.js",
+        "../node_modules/jquery-slimscroll/jquery.slimscroll.min.js",
+        "assets/jquery-detectmobile/detect.js",
+        "../node_modules/fastclick/lib/fastclick.js",
+        "../node_modules/d3/d3.min.js",
+        "../node_modules/c3/c3.min.js",
+        "../node_modules/jqueryui/jquery-ui.min.js",
+        "../node_modules/pivottable/dist/pivot.js",
+        "../node_modules/pivottable/dist/c3_renderers.js",
+        "../node_modules/bootstrap-fileinput/js/fileinput.min.js",
+        "../node_modules/bootstrap-fileinput/js/locales/zh.js",
+        "../node_modules/foundation-datepicker/js/foundation-datepicker.min.js",
+        "../node_modules/foundation-datepicker/js/locales/foundation-datepicker.zh-CN.js",
+        "../node_modules/spin/dist/spin.min.js",
+        "js/jquery.app.js",
+        "../node_modules/jquery-treegrid/js/jquery.treegrid.min.js",
+        "../node_modules/jquery-treegrid/js/jquery.treegrid.bootstrap2.js"],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

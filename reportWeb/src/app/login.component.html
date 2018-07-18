@@ -1,0 +1,58 @@
+<div>
+        <div class="wrapper-page" >
+            <div class="panel panel-color panel-primary panel-pages">
+                <div class="panel-heading bg-img"> 
+                    <div class="bg-overlay"></div>
+                    <h3 class="text-center m-t-10 text-white">登录报表平台<strong></strong> </h3>
+                </div> 
+
+
+                <div class="panel-body panel_border">
+                <form class="form-horizontal m-t-20" (ngSubmit)="login()" #loginForm="ngForm">
+                    <div style="color:red;">{{errMsg}}</div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control input-lg panel_border" type="text" required="" placeholder="用户ID" [(ngModel)]="credentials.UserCode" name="credentials.UserCode"  (keyup)="resetMsg()"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control input-lg panel_border" type="password" required="" placeholder="密码" [(ngModel)]="credentials.Pwd" name="credentials.Pwd" (keyup)="resetMsg()"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox-signup" class="panel_border" type="checkbox" [(ngModel)]="isRemenberUserInfo" name="isRemenberUserInfo"/>
+                                <label for="checkbox-signup">
+                                    	三天之内免登陆
+                                </label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="form-group text-center m-t-40">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" [disabled]="isCommiting" type="submit">登录</button>
+                        </div>
+                    </div>
+                    
+					<!--  
+                    <div class="form-group m-t-30">
+                        <div class="col-sm-7">
+                            <a href="recoverpw.html"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
+                        </div>
+                        <div class="col-sm-5 text-right">
+                            <a href="register.html">Create an account</a>
+                        </div>
+                    </div>
+                    -->
+                </form> 
+                </div>                                 
+                
+            </div>
+        </div>
+</div>

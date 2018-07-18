@@ -1,0 +1,23 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="row form-group">
+            <table class="table table-bordered table-striped table-condensed f_table" >
+                <tr>
+                    <td>用户名称</td>
+                    <td *ngFor="let c_name of cellNames">{{c_name}}</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <tr *ngFor="let task of taskList">
+                    <td>{{task.user_id}}</td>
+                    <td *ngFor="let taskCell of task.taskCells">
+                        <input type="text" [(ngModel)]="taskCell.cell_value" name="taskCell.cell_value" [readonly]="user_id!=task.user_id">
+                    </td>
+                    <td>{{task.state=='3'?'已填报':'未填报'}}</td>
+                    <td *ngIf="user_id==task.user_id&&task.state!='3'"><a class="btn btn-primary"  (click)="updateReportData(task.report_id,task.user_id,task.taskCells)" >填报</a></td>
+                    <td *ngIf="user_id!=task.user_id||(user_id==task.user_id&&task.state=='3')"><input type="button" class="btn"  value="填报" ></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

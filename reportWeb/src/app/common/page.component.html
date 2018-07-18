@@ -1,0 +1,9 @@
+<div class="row form-group">
+    <div class="pull-right">
+        <ul class="pager">
+            <li><a href="javascript:void(0);" (click)="lastPage()">上一页</a></li>
+            <li><a href="javascript:void(0);" (click)="nextPage()">下一页</a></li>
+            <li>第<input type="text" style="width:30px;" [(ngModel)]="page.currentPage"><button [disabled]="page.currentPage<=0||page.currentPage>page.totalPage" (click)="currentPage()">Go</button>页,总{{page.totalPage}}页</li>
+        </ul>
+    </div>
+</div>

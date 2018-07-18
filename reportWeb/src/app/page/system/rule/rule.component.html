@@ -1,0 +1,138 @@
+<div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>权限管理</h3>
+        </div>
+        <div class="panel-body">
+            <div class="panel col-lg-3" style="float: left;">
+                <div class="panel-heading">
+                    人员列表
+                </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div>
+                            <input type="text" name="userName" class="form-control" [(ngModel)]="userName" (keyup)="getUserList()" placeholder="输入查询用户名">
+                        </div>
+                    </div>
+                    <!--<div id="sidebar-menu">
+                    <ul>
+                        <li class="has_sub" *ngFor="let user of userList">
+                            <a class="waves-effect" (click)="getRule(user.user_name)">{{user.user_name}}</a>
+                        </li>
+                    </ul>
+                    </div>-->
+                    <table class="table table-hover" cellspacing="0">
+                        <tr *ngFor="let user of userList">
+                            <td><a class="waves-effect" (click)="getRule($event,user.user_name)">{{user.user_name}}</a></td>
+                        </tr>
+                    </table>
+                    <simplepage-content [simplepage]="simplepage" (simplepagination)="getUserList($event)"></simplepage-content>
+                </div>
+            </div>
+            <div class="panel col-lg-9" style="float: right;">
+                <div class="panel-heading">
+                    权限列表
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs navtab-bg">
+                        <li class="active">
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('select')"> 
+                                <span class="visible-xs"><i class="fa fa-home"></i></span> 
+                                <span class="hidden-xs">查询</span> 
+                            </a> 
+                        </li>
+                        <li>
+                             <a data-toggle="tab" aria-expanded="true" (click)="getRuleList('function')"> 
+                                <span class="visible-xs"><i class="fa fa-user"></i></span> 
+                                <span class="hidden-xs">函数</span> 
+                            </a> 
+                        </li>
+                        <li>
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('template')"> 
+                                <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                <span class="hidden-xs">模板</span> 
+                            </a> 
+                        </li>
+                        <li>
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('func')"> 
+                                <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                <span class="hidden-xs">功能</span> 
+                            </a> 
+                        </li>
+                        <li>
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('webFunc')"> 
+                                <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                <span class="hidden-xs">网站菜单</span> 
+                            </a> 
+                        </li>
+                        <!--<li>
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('OU')"> 
+                                <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                <span class="hidden-xs">分公司</span> 
+                            </a> 
+                        </li>
+                        <li>
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('DM')"> 
+                                <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                <span class="hidden-xs">部门</span> 
+                            </a> 
+                        </li>-->
+                        <li>
+                            <a data-toggle="tab" aria-expanded="false" (click)="getRuleList('table')"> 
+                                <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                <span class="hidden-xs">数据权限</span> 
+                            </a> 
+                        </li>
+                    </ul>
+                    <div *ngIf="type!='table'" class="tab-content"> 
+                        <div class="row form-group">
+                            <div class="">
+                                <a class="btn btn-primary" (click)="saveRules()">保存</a>
+                            </div>
+                        </div>
+                        <div id="loading"></div> 
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="d-inline-block">
+                                            <leo-treeview [items]="bookItems" [config]="bookConfig" (selectedChange)="bookValue = $event"></leo-treeview>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="type=='table'" class="tab-content"> 
+                        <ul id="authTypeUl" class="nav nav-tabs navtab-bg">
+                            <li *ngFor="let authType of authTypeList">
+                                <a data-toggle="tab" aria-expanded="false" (click)="getAuthTypeRuleList(authType.value)"> 
+                                    <span class="visible-xs"><i class="fa fa-home"></i></span> 
+                                    <span class="hidden-xs">{{authType.name}}</span> 
+                                </a> 
+                            </li>
+                        </ul>
+                        <div id="loading"></div> 
+                        <div class="row form-group tab-content">
+                            <div class="">
+                                <a class="btn btn-primary" (click)="saveRules()">保存</a>
+                                <!--<a  class="btn btn-primary" [routerLink]="['/index/system/authType']" >管理权限类型</a>-->
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="d-inline-block">
+                                            <leo-treeview [items]="bookItems" [config]="bookConfig" (selectedChange)="bookValue = $event"></leo-treeview>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
